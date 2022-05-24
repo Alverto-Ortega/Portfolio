@@ -1,24 +1,13 @@
-import React from "react"
-import  {navigate} from "gatsby"
-
-function SomePage(){
-    const triggerNavigation = () => {
-        navigate('/')
-    }
-    return(
-        <div>
-            <p>Triggering page navigation via onClick.</p>
-            <button onClick={ () => triggerNavigation() }>Home Page</button>
-        </div>
-    )
-}
+import React from "react";
+import Layout from "../components/layout/Layout";
 
 export default function About(){
     return (
-        <div>
-            <h1>My About Page</h1>
-            <p>This is a senetence about me</p>
-            <SomePage></SomePage>
-        </div>
+        <Layout>
+            <div>
+                <h1>About Me</h1>
+                <p>Passionate at Full-stack Web Development</p>
+            </div>
+        </Layout>
     )
-}
+};
