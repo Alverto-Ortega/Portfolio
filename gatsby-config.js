@@ -7,6 +7,14 @@ module.exports = {
         bio: 'Passionate at learning the Full-stack Web development technology'
     },
     plugins:[
-        'gatsby-plugin-postcss'
+        'gatsby-plugin-postcss',
+        'gatsby-transformer-remark',
+        {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                name: 'markdown-bio',
+                path: `${__dirname}/MD`,
+            },
+        },
     ],
 };
