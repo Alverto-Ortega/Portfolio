@@ -1,14 +1,16 @@
 import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout/Layout";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 
-export default function About({data}){
-    const {markdownRemark: {html},} = data;
+export default function About({ data }){
+    const {mdx: {body},} = data;
     return (
         <Layout>
+            
             <div className = "max-w-5xl mx-auto py-20 lg:py-30 text-center">
-                <div dangerouslySetInnerHTML={{__html: html}}></div>
+                <MDXRenderer>{body}</MDXRenderer>
             </div>
         </Layout>
     )
@@ -17,7 +19,7 @@ export default function About({data}){
 //query(s):
 export const query = graphql`
 {
-    markdownRemark(frontmatter: {type: {eq: "bio"}}){
-        html
-    }}
-    `;
+    mdx(frontmatter: {type: {eq: "bio"}}){
+        body
+    }
+}`;
