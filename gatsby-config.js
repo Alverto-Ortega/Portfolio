@@ -31,5 +31,7 @@ module.exports = {
                 endpoint: process.env.GRAPHCMS_ENDPOINT,
             },
         },
+        `gatsby-plugin-mdx`,
+        'gatsby-plugin-postcss',
     ],
 };
