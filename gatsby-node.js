@@ -5,8 +5,9 @@ const { createFilePath } = require('gatsby-source-filesystem');
 exports.createPages = async ({actions, graphql, reporter }) => {
     //destructure actions object to retrive createPage function
     const { createPage } = actions;
-    //tell gatsby where to find my blog post template:
+    //tell gatsby where to find templates:
     const BlogPostTemplate = path.resolve('./src/templates/blog-page.js');
+    const BlogPreviewTemplate = path.resolve("./src/templates/blog-preview.js");
     //query data using GraphQL:
     const BlogPostQuery = await graphql(`
         {
@@ -19,14 +20,35 @@ exports.createPages = async ({actions, graphql, reporter }) => {
             }
         }
     `);
+    const BlogPosts = BlogPostQuery.data.allMdx.nodes;
+    const PostsPerPage = 6;
+    const numPages =  Math.ceil(BlogPosts.length / PostsPerPage);
+    //create a blog preview page for each page
+    Array.from({ length: numPages}).forEach((_,i) => {
+        createPage({
+            path: i === 0 ? "/blog" : `/blog/${i + 1}`,
+            component: BlogPreviewTemplate,
+            context: {
+                limit: PostsPerPage,
+                skip: i * PostsPerPage,
+                numPages,
+                currentPage: i+1,
+                slug: i === 0 ? "/blog" : `/blog/${i + 1}`,
+
+            },
+        });
+    });
+    //
+
+
+
     //catch errors if unsuccessful:
     if(BlogPostQuery.errors){
         reporter.panicOnBuild("Error while running GraphQL query.");
         return;
     }
     //upon success, data is gathered. Now we can create pages for each data node
-    BlogPostQuery.data.allMdx.nodes.forEach(({
-        fields: { slug } }) => {
+    BlogPosts.forEach(({fields: { slug } }) => {
             createPage({
                 path: `blog${slug}`,
                 component: BlogPostTemplate,
@@ -36,7 +58,7 @@ exports.createPages = async ({actions, graphql, reporter }) => {
                     slug: slug,
                 },
             });
-        });
+    });
 
 };
 
