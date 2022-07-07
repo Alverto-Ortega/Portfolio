@@ -1,0 +1,51 @@
+---
+type: Blog
+title: Design Tokens meaning
+desc: This post is about design tokens as css and part of the web design process.
+date: 2022-06-20
+tags: [web design, design, web development, computer science, design tokens, wisdom, personal thougths, personal, my universe, ]
+---
+
+# Design Tokens: 
+
+This concept of design tokens is a way in which you store variables with objects containing key:value pairs of a specfic 
+styling value you have used throughtout your project and be able to reliably access this data in other similar projects.
+values of CSS Attributes...
+Injecting data via json, etc...
+
+-The advantages include being able to have a single-source-of-truth file in which you can apply to other projects.
+    - Easier and simpler to implement a new and/or other projects styling. Set as a dafault standard for all projects using it
+    - can caterogize styling according to their needs such as subjects of e-commerse, blog, etc... styling.
+    - Maintain scalable and consistent design system for your user interfaces.
+    - Can be used across many, if not all, platforms for gathering and injecting data.
+    - Saves duplicate code
+
+-Examples of where it can be applied:
+    - store design tokens that inlcude values of brand color or any value that will be reused
+        as my design system across multiple apps and/or dev teams.
+
+# Examples of variables created for a button componenet that you would like to apply 
+in other apps or parts of your project.
+# File: button.json
+    {
+            "default-button" : "bg-blue w-50 h-25 text-small hover:bg-sky-700"
+    }
+# above uses tailwindcss styling variables
+# can be used with other stylign libraries such as SCSS
+
+# then in your page on root directory use the token variable:
+# File: template.html
+    <!doctype html>
+    <html >
+        <head>....</head>
+        <body>
+            <h1> Here is the button : </h1>
+            <button class="{{ default-button }}> This is the button! </button>
+        </body>
+    </html>
+
+This can be used for many purposes including but not limited to: 
+
+    * Small design teams that seek consistent systems(in this case design system) for implementing 
+        into each dev team's project you're working with.
+    * Using your personal styling convention as default for UI's across your multiple projects, etc..

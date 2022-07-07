@@ -1,0 +1,49 @@
+--- 
+type: Blog
+title: Search functionality
+desc: This post will summarize what I learned adding a search functionality feature to my blog
+date: 2022-06-20
+tags: [gatsby, web development journey, portfolio, web development, search functionality]
+---
+### Lesson Overview:
+Local indexed search functionalities are great optimal choice for smaller sites that don't contain lots of 
+pages. 
+
+### Stop Words:
+stop words is a feature that prevents certain letters/words from showing up as results
+for a searched query in your document.
+For example if searching "astronmy" and you have a stop word list contaning "as" then the word "as"
+will not show up as the result.
+
+elasticlunr by default already has some defined stop words but to cuztomize your own stop words
+you can do so like so :
+```
+var my_stop_words = ['as', 'hi', 'yes'];
+elasticlunr.addStopWords(my_stop_words);
+```
+### Language support:
+elasticlunr supports other languages for searching documents such as spanish:
+Including the required scrips:
+```
+<script src="lunr.stemmer.support.js"></script
+<script src="lunr.es.js"></script>
+```
+and within the index variable instance of the elasticlunr function include
+this.use(elasticlunr.es);
+The "es" for spanish language support.
+
+
+Benefits include: offline search features, adding cuztomized stop words, other language search,
+query-time boosting, effective scoring mechanism, field-search, boolean model, quick search, and small index size.
+
+#### Gatsby Lessons:
+Used the gatsby plugin "Elacticlunr", a lightweight full-text search engine for browser and offline search.
+
+#### React Lessons:
+#### JavaScript Lessons:
+#### JSX Lessons:
+#### NodeJs Lessons:
+#### Tailwindcss Lessons:
+#### HTML Lessons:
+#### other Lessons:
+#### Git/Github Lessons:

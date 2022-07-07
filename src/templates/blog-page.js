@@ -7,7 +7,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 
 
 export default function BlogPage({data}) {
-    const {blogpost : {frontmatter: {date, tags, title}, body},} = data;
+    const {blogpost : {frontmatter: {date, tags, title}, body,},} = data;
     const shortDate = date.split("T")[0]
     return(
         <Layout>
@@ -39,4 +39,4 @@ export const pageQuery = graphql`
             }
             body
         }
-    }`
+    }`;
