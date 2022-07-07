@@ -17,7 +17,7 @@ export default function Index({data}){
             </div>
         </Layout>
     );
-}
+};
 export const query = graphql`
 {
     site {

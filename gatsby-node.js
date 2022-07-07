@@ -1,16 +1,19 @@
 //this file can be used to create pages programmatically based on dynamic data...
+//imports
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
-//createPages function to create pages dynamically:
-exports.createPages = async ({actions, graphql, reporter }) => {
+const _ = require("lodash");
+
+exports.createPages = async ({actions, graphql, reporter}) => {
     //destructure actions object to retrive createPage function
     const { createPage } = actions;
     //tell gatsby where to find templates:
     const BlogPostTemplate = path.resolve('./src/templates/blog-page.js');
     const BlogPreviewTemplate = path.resolve("./src/templates/blog-preview.js");
+    const TagsTemplate = path.resolve("./src/templates/tags.js");
     //query data using GraphQL:
     const BlogPostQuery = await graphql(`
-        {
+            {
             allMdx(filter: {frontmatter: { type: { eq: "Blog" }}}){
                 nodes {
                     fields{
@@ -18,13 +21,26 @@ exports.createPages = async ({actions, graphql, reporter }) => {
                     }
                 }
             }
+            tagsGroup: allMdx(filter: {frontmatter: {type: {eq: "Blog"}}}){
+                group(field: frontmatter___tags){
+                    tag: fieldValue
+                }
+            }
         }
+        
     `);
     const BlogPosts = BlogPostQuery.data.allMdx.nodes;
-    const PostsPerPage = 6;
+    const PostsPerPage = 2;
     const numPages =  Math.ceil(BlogPosts.length / PostsPerPage);
+
+    //catch errors if unsuccessful:
+    if(BlogPostQuery.errors){
+        reporter.panicOnBuild("Error while running GraphQL query.");
+        return;
+    }
+
     //create a blog preview page for each page
-    Array.from({ length: numPages}).forEach((_,i) => {
+    Array.from({ length: numPages}).forEach((_, i) => {
         createPage({
             path: i === 0 ? "/blog" : `/blog/${i + 1}`,
             component: BlogPreviewTemplate,
@@ -38,28 +54,29 @@ exports.createPages = async ({actions, graphql, reporter }) => {
             },
         });
     });
-    //
-
-
-
-    //catch errors if unsuccessful:
-    if(BlogPostQuery.errors){
-        reporter.panicOnBuild("Error while running GraphQL query.");
-        return;
-    }
-    //upon success, data is gathered. Now we can create pages for each data node
+    //upon success, data is gathered. 
+    //Now we can create blog post page
     BlogPosts.forEach(({fields: { slug } }) => {
             createPage({
                 path: `blog${slug}`,
                 component: BlogPostTemplate,
-                // to build pages the first time it is requested instead of waiting for all to be built at build time
                 defer: true,
                 context: {
                     slug: slug,
                 },
             });
     });
-
+    
+    //create tag page
+    BlogPostQuery.data.tagsGroup.group.forEach((group, i) => {
+        createPage({
+            path: `tags/${ _.kebabCase(group.tag) }/`,
+            component: TagsTemplate,
+            context: {
+                tag: group.tag,            
+            },
+        });
+    });
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
