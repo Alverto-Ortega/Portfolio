@@ -13,25 +13,27 @@ pages.
 stop words is a feature that prevents certain letters/words from showing up as results
 for a searched query in your document.
 For example if searching "astronmy" and you have a stop word list contaning "as" then the word "as"
-will not show up as the result.
+will be exluded in the result.
 
 elasticlunr by default already has some defined stop words but to cuztomize your own stop words
 you can do so like so :
-```
+```js
 var my_stop_words = ['as', 'hi', 'yes'];
 elasticlunr.addStopWords(my_stop_words);
 ```
+
 ### Language support:
 elasticlunr supports other languages for searching documents such as spanish:
 Including the required scrips:
-```
+```html
 <script src="lunr.stemmer.support.js"></script
 <script src="lunr.es.js"></script>
 ```
-and within the index variable instance of the elasticlunr function include
+and within the index variable instance of the elasticlunr function include:
+```
 this.use(elasticlunr.es);
+```
 The "es" for spanish language support.
-
 
 Benefits include: offline search features, adding cuztomized stop words, other language search,
 query-time boosting, effective scoring mechanism, field-search, boolean model, quick search, and small index size.

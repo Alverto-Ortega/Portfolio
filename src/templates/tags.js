@@ -27,6 +27,8 @@ export default function Tags({pageContext, data }){
                         
                     ))}                    
                 </div>
+                {/*<Pagination numPages={numPages} currentPage={currentPage} /> */}
+
 
             </div>
             

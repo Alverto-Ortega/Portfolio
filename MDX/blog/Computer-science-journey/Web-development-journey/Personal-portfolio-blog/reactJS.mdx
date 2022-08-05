@@ -1,0 +1,75 @@
+---
+type: Blog
+title: All about react components
+desc: This post will summarize what I learned with react js
+date: 2022-07-25
+tags: [portfolio, web development, react]
+---
+
+# **React**
+![cool react logo](https://raddevon.com/wp-content/uploads/2018/10/react.jpg "React logo")
+
+## React components
+All named starting with a capitalized letter so that react can recognize them when used as a component apart
+from the HTMl, `<ComponentName />`
+
+# re-rendering a react DOM
+when re-rendering a react DOM whitin a component, the only actualy element re-rendered is the changed element within that component, thanks to the virtual React DOM Algorithm.  
+Still this re-rendering is not the most efficient and so we welcome the react state, allowing us to manage changing data in our application...
+
+## **Stateful Component** (React class-based Components)
+A class with Internal State.  
+Much more complex than a stateless component.  
+The state is always an object instead of a function.
+These contain data with a state that changes overtime and is reflected in the User Interface Immediately via the virtual React DOM.   
+These components are defined as a class.  
+Able to output dynamic interface elements.
+
+# `setState` function is Asynchronous; Asynchronous as in executing other statements while the previous statement is processing until complete.
+
+## How to use setState function
+If you don't need to know to keep track of values and don't need `prevState` parameter to find the next state value
+then pass an object as the first argmument in `setState`.
+Otherwise, if you need the `prevState` parameter to track and find the next state value use a function
+as the first argument to `setState` function. 
+Note: state methods only apply to class-based components
+
+## React lifecycle method
+The `componentDidUpdate` method is used to do something when state or properties are updated to avoid
+conflict or confusion with the `setState` Asynchronous function.
+Note: this lifecycle method only applies to class components
+
+---
+
+## **Stateless Functional Components**
+A function that accepts props and returns JSX.  
+This is a much more simpler component which works with the react's `props`system with basic output functionality.  
+The Interface is unable to changes based on user input or other changing data.
+This is the best type of components to use throughout your app to help
+contain the state management to a specific area of the app, improving
+development and maintenance process.
+
+This component is slightly faster than class-based components since they dont have a lifecycle method and added data from the extended `React.Component` class.
+
+The `this` keyword is not used in functional components for binding data as opposed to 
+class-based components which needs to use `this` for binding data.  
+Instead `props` is used as a parameter followed by object destructuring to get it's values.  
+
+
+## React hooks  
+As previously mentioned, functional components do not use state or contain lifecycle methods, however,  
+React introduced hooks which is basically a functional component that uses state and lifecycle methods.  
+This is the preferred component to use because it makes way for simpler and readable code with features  
+of both class-based and functional components.
+
+Declare states by using `useState` hook which accepts a parameter as the initial value of the state.  
+The initial value can be of any type(number, string, object,etc...)  
+The `useState` hook returns an array, a value of the current state and the function to update the state, respectively.  
+Example(using destructing syntax):  
+```
+  const [name, setName] =  useState("Miguel");
+```
+the function name `setName` should always start with `set` as the prefix for updating state, althought not mandatory.
+
+
+
