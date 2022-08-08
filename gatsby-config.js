@@ -31,6 +31,26 @@ module.exports = {
                 endpoint: process.env.GRAPHCMS_ENDPOINT,
             },
         },
+        //step1:search functionality
+        {
+            resolve: "@gatsby-contrib/gatsby-plugin-elasticlunr-search",
+            options: {
+                //fields to index:
+                fields: ["title", "tags", "desc"],
+                resolvers: {
+                    //resolving fields for source
+                    Mdx: {
+                        title: node => node.frontmatter.title,
+                        tags: node => node.frontmatter.tags,
+                        desc: node => node.frontmatter.desc,
+                        path: node => "/blog"+node.fields.slug,
+                    },
+                },
+                //only use nodes where frontmatter is of blog type for searchability
+                filter: (node, getNode) => node.frontmatter.type === "Blog",
+
+            },
+        },
         `gatsby-plugin-mdx`,
         'gatsby-plugin-postcss',
     ],

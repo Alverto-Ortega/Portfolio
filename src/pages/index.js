@@ -13,7 +13,8 @@ export default function Index({data}){
         <Layout>
             <div className="max-w-5xl mx-auto py-16 lg:py-24">
                 <h1 className="text-4xl md:text-6xl font-bold text-black">{name}'s Landing Page</h1>
-                <p >{role} Welcome!</p>
+                <p >{role}</p>
+                <p>Welcome!</p>
             </div>
         </Layout>
     );

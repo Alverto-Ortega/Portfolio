@@ -24,6 +24,9 @@ exports.createPages = async ({actions, graphql, reporter}) => {
             tagsGroup: allMdx(filter: {frontmatter: {type: {eq: "Blog"}}}){
                 group(field: frontmatter___tags){
                     tag: fieldValue
+                    nodes{
+                        id
+                    }
                 }
             }
         }
@@ -68,9 +71,10 @@ exports.createPages = async ({actions, graphql, reporter}) => {
     });
     
     //create tag page
+    // only thing i need to figure out is the $skit value to be used for pagination in tags pages
     BlogPostQuery.data.tagsGroup.group.forEach((group, i) => {
         createPage({
-            path: `tags/${ _.kebabCase(group.tag) }/`,
+            path: `/tags/${ _.kebabCase(group.tag) }/`,
             component: TagsTemplate,
             context: {
                 tag: group.tag,            
