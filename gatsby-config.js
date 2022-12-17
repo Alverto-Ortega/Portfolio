@@ -1,5 +1,5 @@
 //define site's metadata, plugins and other general configs:
-require("dotenv").config()
+require("dotenv").config() //loads .env file
 module.exports = {
     siteMetadata:{
         siteUrl: 'https://ortegaportfolio.com',
